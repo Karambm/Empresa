@@ -1,29 +1,41 @@
-import filewriters
-import loaders
+import filewriters as fw
+import loaders as l
 
-loaders.fastf1.plotting.setup_mpl()
+l.fastf1.plotting.setup_mpl()
+
+"""
+CHECKLIST:
+- DONE: Load a session with given parameters, which can call other actions.
+- DONE: Race Schedule for a given season.
+- DONE: Remaining Races given the latest season.
+- BUSY: Aquire lap data to which information as position and laptimes are given.
+- BUSY: An aggregated list of car data per lap per driver.
+"""
 
 def main():
-    session = loaders.loadsession(2023, 'Monza', 'R')
-    
-    circuit_info = session.get_circuit_info() # is dit een kaart?
+    # CIRCUIT INFORMATION
+    circuit_info = session.get_circuit_info() # VRAAG: is dit een kaart?
 
+    # LAP INFORMATION
+    lap = 1
+    while lap < session.total_laps:
+        print(l.loadlap(session, lap))
+        lap += 1
 
-    # filewriters.writejson('sessioninfo', session.session_info)
-    lap_data = session.laps.pick_driver('LEC').pick_fastest().get_car_data()
-    drivers = session.drivers
-    # driverlist = [int[driver] for driver in drivers]
+    # CAR TELEMETRY DATA
+    cheese = l.loadcardata(session, 1, 4)
+    fw.writecsv('car_data', l.loadallcardata(session)) #KRIJGT ValueError
+    pass
 
+year, location, sprinttype = 2023, 'Bahrain', 'R'
 
-    t, vCar = lap_data['Time'], lap_data['Speed']
-    """
-    filewriters.writecsv('t', car_data['Time'])
-    filewriters.writecsv('vCar', car_data['Speed'])
-    """
-    filewriters.writecsv('lap_data', lap_data)
+# CHECKLIST MIRROR
+session = l.loadsession(year, location, sprinttype)
+fw.writecsv(f'schedule_{year}', l.loadschedule(year)) # Writes the schedule of the given year
+fw.writecsv('remaining_sessions', l.loadremaining()) # Writes the remaining sessions of the season
+fw.writecsv('weather_data', session.weather_data)
+fw.writecsv('track_status', session.track_status)
 
-filewriters.writecsv('schedule', loaders.loadschedule(2023)) # Writes the schedule of the given year
-filewriters.writecsv('remaining_sessions', loaders.loadremaining()) # Writes the remaining sessions of the season
 main()
 
-loaders.fastf1.Cache.clear_cache()
+# l.fastf1.Cache.clear_cache()

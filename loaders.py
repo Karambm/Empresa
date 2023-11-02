@@ -1,19 +1,39 @@
 import fastf1
 import fastf1.plotting
+import pandas as pd
 
-def loadsession(year, circuit, sessiontype):
+def loadallcardata(session):
+    combined = []
+    for driver in session.drivers:
+        lap = 1
+        while lap < session.total_laps:
+            try:
+                combined.append(session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data())
+                print(session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data())
+            except KeyError as ke:
+                print(f"\x1b[31mKeyError: {ke}\x1b[0m")
+            except ValueError as ve:
+                print(f"\x1b[31mValueError: {ve}\x1b[0m")
+            lap += 1
+    return pd.concat(combined)
+
+def loadcardata(session, driver, lap):
     """
-    Loads a given session defined by:
-    - year (int): the year the race was held.
-    - circuit (name: str | id: int): the circuit which was raced on in the given year.
-    - sessiontype (str): which type of session it is (Qualifying, Race, etc.).
-
+    #TODO BESCHRIJVING
+    
     Results:
-    - session (DataFrame): which contains a variety of information regarding the requested session.
+    - Telemetry (DataFrame): information regarding the car within a given lap.
     """
-    session = fastf1.get_session(year, circuit, sessiontype)
-    session.load()
-    return session
+    return session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data()
+
+def loadlap(session, lap):
+    """
+    #TODO BESCHRIJVING
+    
+    Results:
+    - Lapinformation (DataFrame): 
+    """
+    return session.laps.pick_lap(lap)
 
 def loadremaining():
     """
@@ -33,3 +53,17 @@ def loadschedule(year):
     - schedule (DataFrame): the schedule of the given year.
     """
     return fastf1.get_event_schedule(int(year))
+
+def loadsession(year, circuit, sessiontype):
+    """
+    Loads a given session defined by:
+    - year (int): the year the race was held.
+    - circuit (name: str | id: int): the circuit which was raced on in the given year.
+    - sessiontype (str): which type of session it is (Qualifying, Race, etc.).
+
+    Results:
+    - session (DataFrame): which contains a variety of information regarding the requested session.
+    """
+    session = fastf1.get_session(year, circuit, sessiontype)
+    session.load(laps=True, weather= True, telemetry=True, messages=True)
+    return session
