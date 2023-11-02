@@ -1,4 +1,0 @@
-def strijders():
-    pass
-
-strijders()
