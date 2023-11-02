@@ -9,7 +9,7 @@ def loadallcardata(session):
         while lap < session.total_laps:
             try:
                 combined.append(session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data())
-                print(session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data())
+                # print(session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data())
             except KeyError as ke:
                 print(f"\x1b[31mKeyError: {ke}\x1b[0m")
             except ValueError as ve:

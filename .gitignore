@@ -5,3 +5,8 @@
 /car_data.csv
 /weather_data.csv
 /track_status.csv
+/.DS_Store
+/__pycache__
+/.idea
+/.vscode
+/session_results.csv

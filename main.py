@@ -23,11 +23,14 @@ def main():
         lap += 1
 
     # CAR TELEMETRY DATA
-    cheese = l.loadcardata(session, 1, 4)
+    car_individual = l.loadcardata(session, 1, 4)
     fw.writecsv('car_data', l.loadallcardata(session)) #KRIJGT ValueError
+    
+    #SESSION RESULTS
+    fw.writecsv('session_results', session.results)
     pass
 
-year, location, sprinttype = 2023, 'Bahrain', 'R'
+year, location, sprinttype = 2022, 'Bahrain', 'R'
 
 # CHECKLIST MIRROR
 session = l.loadsession(year, location, sprinttype)
@@ -38,4 +41,4 @@ fw.writecsv('track_status', session.track_status)
 
 main()
 
-# l.fastf1.Cache.clear_cache()
+l.fastf1.Cache.clear_cache()
