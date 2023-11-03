@@ -9,7 +9,10 @@ def writecsv(name, data):
     Results:
     - FILE (csv)
     """
-    data.to_csv(f"{name}.csv", index=False)
+    try:
+        data.to_csv(f"{name}.csv", index=False)
+    except AttributeError as ae:
+        print(f'\x1b[31mAttributeError: {ae}\x1b[0m')
 
 def writejson(name, data):
     """

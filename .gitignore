@@ -10,3 +10,6 @@
 /.idea
 /.vscode
 /session_results.csv
+/ci_cornerinfo.csv
+/ci_marshallights.csv
+/ci_marshalsectors.csv

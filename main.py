@@ -13,9 +13,6 @@ CHECKLIST:
 """
 
 def main():
-    # CIRCUIT INFORMATION
-    circuit_info = session.get_circuit_info() # VRAAG: is dit een kaart?
-
     # LAP INFORMATION
     lap = 1
     while lap < session.total_laps:
@@ -24,13 +21,22 @@ def main():
 
     # CAR TELEMETRY DATA
     car_individual = l.loadcardata(session, 1, 4)
-    fw.writecsv('car_data', l.loadallcardata(session)) #KRIJGT ValueError
+    fw.writecsv('car_data', l.loadallcardata(session)) # KRIJGT ValueError
     
-    #SESSION RESULTS
+    # SESSION RESULTS
     fw.writecsv('session_results', session.results)
+
+    # CIRCUIT INFO
+    circuit_info = session.get_circuit_info() # VRAAG: is dit een kaart?
+    try:
+        fw.writecsv('ci_cornerinfo', circuit_info.corners)
+        fw.writecsv('ci_marshallights', circuit_info.marshal_lights)
+        fw.writecsv('ci_marshalsectors', circuit_info.marshal_sectors)
+    except TypeError as te:
+        print(f'\x1b[31mTypeError: {te}\x1b[0m')
     pass
 
-year, location, sprinttype = 2022, 'Bahrain', 'R'
+year, location, sprinttype = 2022, 'Francorchamps', 'R'
 
 # CHECKLIST MIRROR
 session = l.loadsession(year, location, sprinttype)
