@@ -1,5 +1,6 @@
 import json
 
+
 def writecsv(name, data):
     """
     Writes a DataFrame to a csv-file with the given name
@@ -14,6 +15,7 @@ def writecsv(name, data):
     except AttributeError as ae:
         print(f'\x1b[31mAttributeError: {ae}\x1b[0m')
 
+
 def writejson(name, data):
     """
     Writes a DataFrame to a json-file with the given name
@@ -23,7 +25,7 @@ def writejson(name, data):
     Results:
     - FILE (json)
     """
-    #TODO: schrijf functie zodanig dat volledige data wordt ingeladen
+    # TODO: schrijf functie zodanig dat volledige data wordt ingeladen
     try:
         with open(f"{name}.json", "w") as json_file:
             json.dump(list(data), json_file, indent=4)

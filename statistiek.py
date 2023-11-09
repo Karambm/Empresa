@@ -1,4 +1,4 @@
-def mean(lst):
+def mean(lst, totaal=0):
     """
     Bepaal het gemiddelde van een lijst getallen.
 
@@ -8,10 +8,10 @@ def mean(lst):
     Returns:
         float: Het gemiddelde van de gegeven getallen.
     """
-    totaal = 0
     for getal in lst:
         totaal += getal
     return totaal / len(lst)
+
 
 def rnge(lst):
     """
@@ -24,6 +24,7 @@ def rnge(lst):
         int: Het bereik van de gegeven getallen.
     """
     return max(lst) - min(lst)
+
 
 def median(lst):
     """
@@ -45,6 +46,7 @@ def median(lst):
         index = ((len(lst) / 2) // 1)
         return float(lst[int(index)])
 
+
 def q1(lst):
     """
     Bepaal het eerste kwartiel Q1 van een lijst getallen.
@@ -60,6 +62,7 @@ def q1(lst):
     lst.sort()
     index = int(((len(lst) / 2) // 1))
     return float(median(lst[:int(index)]))
+
 
 def q3(lst):
     """
@@ -80,7 +83,8 @@ def q3(lst):
 
     return float(median(lst[int(index):]))
 
-def var(lst):
+
+def var(lst, tussen=0):
     """
     Bepaal de variantie van een lijst getallen.
 
@@ -90,11 +94,11 @@ def var(lst):
     Returns:
         float: De variantie van de gegeven getallen.
     """
-    tussen = 0
     gemiddelde = mean(lst)
     for instantie in lst:
         tussen += ((instantie - gemiddelde) ** 2)
     return tussen / len(lst)
+
 
 def std(lst):
     """
@@ -108,7 +112,8 @@ def std(lst):
     """
     return var(lst) ** 0.5
 
-def freq(lst):
+
+def freq(lst, aantal={}):
     """
     Bepaal de frequenties van alle getallen in een lijst.
 
@@ -119,7 +124,6 @@ def freq(lst):
         dict: Een dictionary met als 'key' de waardes die voorkomen in de lijst
             en als 'value' het aantal voorkomens (de frequentie) van die waarde.
     """
-    aantal = {}
     for getal in lst:
         if getal in aantal:
             aantal[getal] += 1
@@ -127,7 +131,8 @@ def freq(lst):
             aantal[getal] = 1
     return aantal
 
-def modes(lst):
+
+def modes(lst, modi=[], nieuwdict={}):
     """
     Bepaal alle modi van een lijst getallen.
 
@@ -139,8 +144,6 @@ def modes(lst):
     Returns:
         list: Een gesorteerde lijst van de modi van de gegeven getallen.
     """
-    modi = []
-    nieuwdict = {}
     for getal in lst:
         nieuwdict.setdefault(getal, 0)
         nieuwdict[getal] += 1

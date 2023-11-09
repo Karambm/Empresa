@@ -1,23 +1,26 @@
 import fastf1
 import fastf1.plotting
 
+
 def loadcardata(session, driver, lap):
     """
     #TODO BESCHRIJVING
-    
+
     Results:
     - Telemetry (DataFrame): information regarding the car within a given lap.
     """
     return session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data()
 
+
 def loadlap(session, lap):
     """
     #TODO BESCHRIJVING
-    
+
     Results:
     - Lapinformation (DataFrame): 
     """
     return session.laps.pick_lap(lap)
+
 
 def loadremaining():
     """
@@ -28,6 +31,7 @@ def loadremaining():
     """
     return fastf1.get_events_remaining()
 
+
 def loadschedule(year):
     """
     Loads the schedule for a given year.
@@ -37,6 +41,7 @@ def loadschedule(year):
     - schedule (DataFrame): the schedule of the given year.
     """
     return fastf1.get_event_schedule(int(year))
+
 
 def loadsession(year, circuit, sessiontype):
     """
@@ -49,5 +54,5 @@ def loadsession(year, circuit, sessiontype):
     - session (DataFrame): which contains a variety of information regarding the requested session.
     """
     session = fastf1.get_session(year, circuit, sessiontype)
-    session.load(laps=True, weather= True, telemetry=True, messages=True)
+    session.load(laps=True, weather=True, telemetry=True, messages=True)
     return session
