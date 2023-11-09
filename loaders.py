@@ -1,20 +1,5 @@
 import fastf1
 import fastf1.plotting
-import pandas as pd
-
-def loadallcardata(session):
-    combined = []
-    for driver in session.drivers:
-        lap = 1
-        while lap < session.total_laps:
-            try:
-                combined.append(session.laps.pick_driver(str(driver)).pick_lap(int(lap)).get_car_data())
-            except KeyError as ke:
-                print(f"\x1b[31mKeyError: {ke}\x1b[0m")
-            except ValueError as ve:
-                print(f"\x1b[31mValueError: {ve}\x1b[0m")
-            lap += 1
-    return pd.concat(combined)
 
 def loadcardata(session, driver, lap):
     """

@@ -1,3 +1,7 @@
+/.DS_Store
+/__pycache__
+/.idea
+/.vscode
 /lap_data.csv
 /remaining_sessions.csv
 /schedule_2022.csv
@@ -5,11 +9,10 @@
 /car_data.csv
 /weather_data.csv
 /track_status.csv
-/.DS_Store
-/__pycache__
-/.idea
-/.vscode
 /session_results.csv
 /ci_cornerinfo.csv
 /ci_marshallights.csv
 /ci_marshalsectors.csv
+/schedule_2021.csv
+/lapinfo.csv
+/cardata.csv

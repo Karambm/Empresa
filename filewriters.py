@@ -24,5 +24,8 @@ def writejson(name, data):
     - FILE (json)
     """
     #TODO: schrijf functie zodanig dat volledige data wordt ingeladen
-    with open(f"{name}.json", "w") as json_file:
-        json.dump(list(data), json_file, indent=4)
+    try:
+        with open(f"{name}.json", "w") as json_file:
+            json.dump(list(data), json_file, indent=4)
+    except TypeError as te:
+        print(f'\x1b[31mTypeError: {te}\x1b[0m')
