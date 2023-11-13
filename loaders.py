@@ -54,5 +54,8 @@ def loadsession(year, circuit, sessiontype):
     - session (DataFrame): which contains a variety of information regarding the requested session.
     """
     session = fastf1.get_session(year, circuit, sessiontype)
-    session.load(laps=True, weather=True, telemetry=True, messages=True)
-    return session
+    try:
+        session.load(laps=True, weather=True, telemetry=True, messages=True)
+        return session
+    except:
+        print(f'\x1b[31mFailed to load: {year}, {circuit}, "{sessiontype}"\x1b[0m')
