@@ -1,0 +1,7 @@
+pandas
+fastf1
+sklearn.metrics
+pandas
+seaborn
+time
+os
