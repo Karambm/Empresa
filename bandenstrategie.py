@@ -2,6 +2,32 @@ import fastf1
 import fastf1.plotting
 from matplotlib import pyplot as plt
 
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+
+# Verbindingsreeks naar je Azure Storage-account
+connection_string = "YOUR_STORAGE_ACCOUNT_CONNECTION_STRING"
+
+# Maak een BlobServiceClient
+blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+
+# Maak een ContainerClient (dit is vergelijkbaar met een map in Blob Storage)
+container_name = "yourcontainer"
+container_client = blob_service_client.get_container_client(container_name)
+
+# Definieer de naam van het bestand dat je wilt uploaden
+file_name = "example_data.csv"
+
+# Definieer de gegevens die je wilt uploaden
+data_to_upload = b"Your data content here."
+
+# Maak een BlobClient voor het bestand
+blob_client = container_client.get_blob_client(file_name)
+
+
+# Upload de gegevens naar Blob Storage
+blob_client.upload_blob(data_to_upload, overwrite=True)
+
+
 session = fastf1.get_session(2022, "Hungary", 'R')
 session.load()
 laps = session.laps
